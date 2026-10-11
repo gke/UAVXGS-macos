@@ -46,8 +46,31 @@ UAVXGS/
     │   ├── ui/            — Qt UI modules
     │   ├── core/          — data manager, speech, etc.
     │   └── airframes/     — .af tuning files
-    └── UAVXF4V3Q_r16.bin  ← pre-compiled FC firmware
+    └── UAVXF4V3Q_r0.bin    ← pre-compiled FC firmware
 ```
+
+## Flight-Controller Firmware
+
+The kit bundles the current flight-controller firmware image, `UAVXF4V3Q_r0.bin`
+(STM32F4 targets). To flash it:
+
+1. Install `dfu-util`:
+
+   ```bash
+   brew install dfu-util
+   ```
+
+2. Put the board into DFU/bootloader mode: hold **BOOT0** and tap reset (or
+   power-cycle while BOOT0 is held), then release.
+3. Flash the image:
+
+   ```bash
+   dfu-util -a 0 -s 0x08000000:leave -D UAVXF4V3Q_r0.bin
+   ```
+4. Power-cycle the board; it should respond in the GCS.
+
+When updating over USB, the GCS **BOOTLOAD** button can put a running board into
+bootloader mode, so no BOOT0 link is needed.
 
 ## Notes
 
